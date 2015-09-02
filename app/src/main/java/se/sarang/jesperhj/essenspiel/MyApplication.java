@@ -8,6 +8,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
+import org.apache.http.impl.client.DefaultHttpClient;
+
 public class MyApplication extends Application {
     @Override
     public void onCreate() {
@@ -23,7 +25,8 @@ public class MyApplication extends Application {
                 getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
                 .memoryCache(new WeakMemoryCache())
-                .discCacheSize(100 * 1024 * 1024).build();
+                .discCacheSize(100 * 1024 * 1024)
+                .build();
 
         ImageLoader.getInstance().init(config);
         // END - UNIVERSAL IMAGE LOADER SETUP

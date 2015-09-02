@@ -22,7 +22,7 @@ public class Item
     @Attribute
     private String postdate;
 
-    @Element(required=false)
+    @Element(required = false)
     private String body;
 
     @Attribute
@@ -42,6 +42,10 @@ public class Item
 
     @Attribute
     private String editdate;
+
+    @Attribute
+    private String publisherid;
+
 
     public String getId ()
     {
@@ -153,9 +157,19 @@ public class Item
         this.editdate = editdate;
     }
 
+    public String getPublisherid ()
+    {
+        return publisherid;
+    }
+
+    public void setPublisherid (String publisherid)
+    {
+        this.publisherid = publisherid;
+    }
+
     @Override
     public String toString()
     {
-        return "ClassPojo [id = "+id+", objectname = "+objectname+", thumbs = "+thumbs+", postdate = "+postdate+", body = "+body+", username = "+username+", objecttype = "+objecttype+", subtype = "+subtype+", objectid = "+objectid+", imageid = "+imageid+", editdate = "+editdate+"]";
+        return "ClassPojo [id = "+id+", objectname = "+objectname+", thumbs = "+thumbs+", postdate = "+postdate+", body = "+body+", username = "+username+", objecttype = "+objecttype+", subtype = "+subtype+", objectid = "+objectid+", imageid = "+imageid+", editdate = "+editdate+", publisherid = "+publisherid+"]";
     }
 }

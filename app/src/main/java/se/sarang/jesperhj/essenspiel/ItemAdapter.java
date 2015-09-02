@@ -1,6 +1,7 @@
 package se.sarang.jesperhj.essenspiel;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,11 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     public String imageURL(String id) {
         return "http://cf.geekdo-images.com/images/pic" + id + "_t.jpg";
     }
+
+    private DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+            .cacheOnDisc(true).resetViewBeforeLoading(true)
+            .showImageOnFail(R.drawable.default_image)
+            .build();
 
     @Override
     public int getCount() {
@@ -54,28 +61,29 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         }
 
         // Lookup view for data population
-        TextView itemName = (TextView) convertView.findViewById(R.id.itemName);
-        TextView itemObjectType = (TextView) convertView.findViewById(R.id.itemObjectType);
+        TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView description = (TextView) convertView.findViewById(R.id.description);
 
         // Populate the data into the template view using the data object
-        itemName.setText(item.getObjectname());
-        itemObjectType.setText(item.getObjecttype());
+        name.setText(item.getObjectname());
+        String desc = item.getBody();
+        if(desc.length() > 50) {
+            desc = desc.substring(0, 50);
+        }
 
-        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true).resetViewBeforeLoading(true)
-                .build();
-
-        /*DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true).resetViewBeforeLoading(true)
-                .showImageForEmptyUri(fallback)
-                .showImageOnFail(fallback)
-                .showImageOnLoading(fallback).build();*/
+        description.setText(desc);
 
         //initialize image view
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView1);
+        ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
         //download and display image from url
-        imageLoader.displayImage(imageURL(item.getImageid()), imageView, options);
+        imageLoader.displayImage(imageURL(item.getImageid()), image, options);
+
+        /*try {
+            imageLoader.displayImage(imageURL(item.getImageid()), image, options);
+        } catch(FileNotFoundException e) {
+            Log.e("App", e.getMessage());
+        }*/
 
         // Return the completed view to render on screen
         return convertView;
