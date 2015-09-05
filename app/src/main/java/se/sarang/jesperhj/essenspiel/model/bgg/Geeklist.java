@@ -1,4 +1,4 @@
-package se.sarang.jesperhj.essenspiel.model;
+package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -6,8 +6,6 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 import java.util.List;
-
-import se.sarang.jesperhj.essenspiel.model.Item;
 
 /**
  * Created by jesper on 01/09/15.

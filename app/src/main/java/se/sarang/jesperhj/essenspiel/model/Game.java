@@ -11,13 +11,20 @@ public class Game {
 
     public Game(){}
 
-    public Game(String title, int publisherId) {
+    public Game(int id, String title, int publisherId) {
         super();
+        this.id = id;
         this.title = title;
         this.publisherId = publisherId;
     }
 
     //getters & setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public int getPublisherId() { return publisherId; }
+    public void setPublisherId(int publisherId) { this.publisherId = publisherId; }
 
     @Override
     public String toString() {

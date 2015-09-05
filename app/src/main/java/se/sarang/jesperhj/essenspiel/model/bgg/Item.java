@@ -1,4 +1,4 @@
-package se.sarang.jesperhj.essenspiel.model;
+package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -89,7 +89,10 @@ public class Item
 
     public String getBody ()
     {
-        return body;
+        if(body == null)
+            return "";
+        else
+            return body;
     }
 
     public void setBody (String body)

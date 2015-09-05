@@ -1,7 +1,6 @@
 package se.sarang.jesperhj.essenspiel;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,19 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
-import se.sarang.jesperhj.essenspiel.model.Item;
+import se.sarang.jesperhj.essenspiel.model.bgg.Item;
 
 /**
  * Created by jesper on 01/09/15.
  */
 public class ItemAdapter extends ArrayAdapter<Item> {
+    private List<Item> items;
+
     public ItemAdapter(Context context, List<Item> items) {
         super(context, 0, items);
+        this.items = items;
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
     }
 
@@ -41,7 +41,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
     @Override
     public int getCount() {
-        return 20;
+        return items.size();
     }
 
     @Override
