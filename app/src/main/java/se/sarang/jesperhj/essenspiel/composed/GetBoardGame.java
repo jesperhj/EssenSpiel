@@ -1,20 +1,17 @@
 package se.sarang.jesperhj.essenspiel.composed;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import se.sarang.jesperhj.essenspiel.bus.BusManager;
 import se.sarang.jesperhj.essenspiel.bus.RetrofitErrorEvent;
+import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
+import se.sarang.jesperhj.essenspiel.model.bgg.Boardgames;
 import se.sarang.jesperhj.essenspiel.model.bgg.Geeklist;
-import se.sarang.jesperhj.essenspiel.model.bgg.Item;
 
 /**
- * Created by jesper on 05/09/15.
+ * Created by jesper on 06/09/15.
  */
-public class GetGeekList {
-
+public class GetBoardgame {
     // Not applicable in this example
     public static final class Request {
         // This can be used to send data as POST to the server.
@@ -25,10 +22,10 @@ public class GetGeekList {
 
     }
 
-    public static final class Callback implements retrofit.Callback<Geeklist> {
+    public static final class Callback implements retrofit.Callback<Boardgames> {
 
         @Override
-        public void success(Geeklist geeklist, Response retrofitResponse) {
+        public void success(Boardgames boardgames, Response retrofitResponse) {
             // Process the data
             // In a real project this could be the place to save data in the database.
             /*String text = "";
@@ -36,9 +33,8 @@ public class GetGeekList {
                 text = text.concat(post.getId()+": "+post.getTitle()+"\n");
             }*/
             //String text = geeklist.getTitle();
-            BusManager.post(new Event(geeklist));
-            //List<String> bl = ExtractBoardgamesIds(geeklist);
-            //BusManager.post(new BoardgameListEvent(bl));
+            Boardgame boardgame = boardgames.getBoardgame().get(0);
+            BusManager.post(new Event(boardgame));
         }
 
         @Override
@@ -46,40 +42,31 @@ public class GetGeekList {
             BusManager.post(new RetrofitErrorEvent(error));
         }
 
-        private List<String> ExtractBoardgamesIds(Geeklist geeklist) {
-            List<String> boardgameList = new ArrayList<String>();
-            for (Item i : geeklist.getItem()) {
-                boardgameList.add(i.getObjectid());
-            }
-            return boardgameList;
+    }
+
+    /*public class GK {
+        private final Geeklist geeklist;
+
+        public GK(Geeklist geeklist) {
+            this.geeklist = geeklist;
         }
 
-    }
+        public String getGeeklist() {
+            return geeklist;
+        }
+    }*/
 
     // Otto Event
     public static final class Event {
 
-        private final Geeklist geeklist;
+        private final Boardgame boardgame;
 
-        public Event(Geeklist geeklist) {
-            this.geeklist = geeklist;
+        public Event(Boardgame boardgame) {
+            this.boardgame = boardgame;
         }
 
-        public Geeklist getGeeklist() {
-            return geeklist;
-        }
-    }
-
-    public static final class BoardgameListEvent {
-
-        private List<String> boardgames;
-
-        public void BoardgameListEvent(List<String> boardgames) {
-            this.boardgames = boardgames;
-        }
-
-        public List<String> getBoargameList() {
-            return boardgames;
+        public Boardgame getBoardgame() {
+            return boardgame;
         }
     }
 }

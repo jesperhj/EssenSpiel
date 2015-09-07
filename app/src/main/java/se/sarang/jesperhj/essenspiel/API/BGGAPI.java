@@ -10,7 +10,7 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 
 
-public interface GeeklistAPI {
+public interface BGGAPI {
 //    @GET("/geeklist/{geeklist}")
 //    public void getList(@Path("geeklist") String geeklist, Callback<Geeklist> response);
 
@@ -20,6 +20,9 @@ public interface GeeklistAPI {
     //@GET("/posts")
     //void posts(Callback<List<Post>> cb);
 
-    @GET("boardgame/{boardgame}")
-    public void getBoardgame(@Path("boardgame") String boardgame, Callback<Boardgames> response);
+    //@GET("/boardgame/{boardgame}")
+    //void boardgame(@Path("boardgame") String boardgame, Callback<Boardgames> response);
+
+    @GET("/boardgame/{boardgame}")
+    void boardgame(@Path("boardgame") String boardgame, Callback<Boardgames> response);
 }

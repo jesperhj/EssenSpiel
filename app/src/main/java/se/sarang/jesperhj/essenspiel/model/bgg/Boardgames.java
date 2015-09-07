@@ -2,7 +2,10 @@ package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import java.util.List;
 
 import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
 
@@ -12,18 +15,18 @@ import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
 @Root(name = "boardgames")
 public class Boardgames
 {
-    @Element
-    private Boardgame boardgame;
+    @ElementList
+    private List<Boardgame> boardgame;
 
     @Attribute
     private String termsofuse;
 
-    public Boardgame getBoardgame ()
+    public List<Boardgame> getBoardgame ()
     {
         return boardgame;
     }
 
-    public void setBoardgame (Boardgame boardgame)
+    public void setBoardgame (List<Boardgame> boardgame)
     {
         this.boardgame = boardgame;
     }

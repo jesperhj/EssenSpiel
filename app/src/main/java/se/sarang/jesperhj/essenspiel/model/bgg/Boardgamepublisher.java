@@ -8,6 +8,7 @@ import org.simpleframework.xml.Attribute;
 public class Boardgamepublisher
 {
     private String content;
+
     @Attribute
     private String objectid;
 

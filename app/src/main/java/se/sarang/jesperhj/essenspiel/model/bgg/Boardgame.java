@@ -1,7 +1,9 @@
 package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 
+import java.util.List;
 import java.util.jar.Attributes;
 
 /**
@@ -9,16 +11,16 @@ import java.util.jar.Attributes;
  */
 public class Boardgame
 {
-    @Element
-    private Boardgamepublisher[] boardgamepublisher;
+    @ElementList
+    private List<Boardgamepublisher> boardgamepublisher;
     @Element
     private Boardgameexpansion boardgameexpansion;
-    @Element
-    private Boardgameartist[] boardgameartist;
+    @ElementList
+    private List<Boardgameartist> boardgameartist;
     @Element
     private String image;
-    @Element
-    private Boardgamedesigner[] boardgamedesigner;
+    @ElementList
+    private List<Boardgamedesigner boardgamedesigner;
     @Element
     private String minplayers;
     @Element
@@ -41,8 +43,8 @@ public class Boardgame
     private String yearpublished;
     @Element
     private String minplaytime;
-    @Element
-    private Boardgamecategory[] boardgamecategory;
+    @ElementList
+    private List<Boardgamecategory> boardgamecategory;
     @Element
     private String objectid;
     @Element

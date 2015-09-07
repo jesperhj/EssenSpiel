@@ -1,5 +1,6 @@
 package se.sarang.jesperhj.essenspiel;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,18 +11,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.client.OkClient;
 import retrofit.converter.SimpleXMLConverter;
-import se.sarang.jesperhj.essenspiel.API.GeeklistAPI;
+import se.sarang.jesperhj.essenspiel.API.BGGAPI;
 import se.sarang.jesperhj.essenspiel.API.HttpRequestController;
 import se.sarang.jesperhj.essenspiel.bus.BusManager;
 import se.sarang.jesperhj.essenspiel.bus.RetrofitErrorEvent;
+import se.sarang.jesperhj.essenspiel.composed.GetBoardgame;
+import se.sarang.jesperhj.essenspiel.composed.GetBoardgames;
 import se.sarang.jesperhj.essenspiel.composed.GetGeekList;
 import se.sarang.jesperhj.essenspiel.model.bgg.Geeklist;
 import se.sarang.jesperhj.essenspiel.model.bgg.Item;
@@ -71,12 +76,22 @@ public class MainActivity extends ActionBarActivity {
         tv = (TextView) findViewById(R.id.tv);
 
         Button postsBtn = (Button) findViewById(R.id.getList);
+        Button postsBtn2 = (Button) findViewById(R.id.getGames);
         postsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // No callback defined at this point
                 //controller.getPosts();
                 controller.getGeekList();
+            }
+        });
+
+        postsBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // No callback defined at this point
+                //controller.getPosts();
+                controller.getBoardGames("181797,172584");
             }
         });
 
@@ -140,6 +155,30 @@ public class MainActivity extends ActionBarActivity {
 
         // Assign adapter to ListView
         lv.setAdapter(adapter);
+        Context context = getApplicationContext();
+        CharSequence text = "List loaded!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        List<String> boardgameIds = new ArrayList<String>();
+        for (Item i : items) {
+            boardgameIds.add(i.getObjectid());
+            if(boardgameIds.size() == 10) {
+                controller.getBoardGames(android.text.TextUtils.join(",", boardgameIds));
+                boardgameIds.clear();
+                try {
+                    Thread.sleep(1000);
+                    break;
+                } catch ( java.lang.InterruptedException ie) {
+                    System.out.println(ie);
+                }
+            }
+            //System.out.println(i.getId());
+            //controller.getBoardGame(i.getObjectid());
+            //db.addGame(new Game(i.getId()));
+        }
     }
 
     @Override
@@ -183,6 +222,12 @@ public class MainActivity extends ActionBarActivity {
         fillList(event.getGeeklist().getItem());
     }
 
+    @Subscribe
+    public void onGetBoardgames(GetBoardgames.Event event){
+        System.out.println("foo");
+        //tv.setText(event.getBoardgame().getName());
+        //fillList(event.getGeeklist().getItem());
+    }
 
     @Subscribe
     public void onRetrofitErrorEvent(RetrofitErrorEvent event){
