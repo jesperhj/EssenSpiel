@@ -12,7 +12,7 @@ import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
 /**
  * Created by jesper on 05/09/15.
  */
-@Root(name = "boardgames")
+@Root(name = "boardgames", strict=false)
 public class Boardgames
 {
     @ElementList

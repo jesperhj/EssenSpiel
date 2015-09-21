@@ -1,7 +1,9 @@
 package se.sarang.jesperhj.essenspiel.model.bgg;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
 import java.util.List;
 import java.util.jar.Attributes;
@@ -9,51 +11,55 @@ import java.util.jar.Attributes;
 /**
  * Created by jesper on 05/09/15.
  */
+@Element(name = "boardgame")
 public class Boardgame
 {
-    @ElementList
-    private List<Boardgamepublisher> boardgamepublisher;
-    @Element
-    private Boardgameexpansion boardgameexpansion;
-    @ElementList
-    private List<Boardgameartist> boardgameartist;
-    @Element
-    private String image;
-    @ElementList
-    private List<Boardgamedesigner boardgamedesigner;
-    @Element
-    private String minplayers;
-    @Element
-    private String maxplaytime;
-    @Element
-    private String maxplayers;
-    @Element
-    private Poll[] poll;
-    @Element
-    private String thumbnail;
-    @Element
-    private String playingtime;
-    @Element
-    private String description;
-    @Element
-    private Name name;
-    @Element
-    private String age;
-    @Element
-    private String yearpublished;
-    @Element
-    private String minplaytime;
-    @ElementList
-    private List<Boardgamecategory> boardgamecategory;
-    @Element
+    @Attribute(required=false)
     private String objectid;
-    @Element
-    public Boardgamepublisher[] getBoardgamepublisher ()
+
+    @ElementList(required=false)
+    private List<Boardgamepublisher> boardgamepublisher;
+    @Element(required=false)
+    private Boardgameexpansion boardgameexpansion;
+    @ElementList(required=false)
+    private List<Boardgameartist> boardgameartist;
+    @Element(required=false)
+    private String image;
+    @ElementList(required=false)
+    private List<Boardgamedesigner> boardgamedesigner;
+    @Element(required=false)
+    private String minplayers;
+    @Element(required=false)
+    private String maxplaytime;
+    @Element(required=false)
+    private String maxplayers;
+    @ElementList(required=false)
+    private List<Poll> poll;
+    @Element(required=false)
+    private String thumbnail;
+    @Element(required=false)
+    private String playingtime;
+    @Element(required=false)
+    private String description;
+
+    @Element(name = "name", required = false, type = Name.class)
+    private Name name;
+
+    @Element(required=false)
+    private String age;
+    @Element(required=false)
+    private String yearpublished;
+    @Element(required=false)
+    private String minplaytime;
+    @ElementList(required=false)
+    private List<Boardgamecategory> boardgamecategory;
+
+    public List<Boardgamepublisher> getBoardgamepublisher ()
     {
         return boardgamepublisher;
     }
 
-    public void setBoardgamepublisher (Boardgamepublisher[] boardgamepublisher)
+    public void setBoardgamepublisher (List<Boardgamepublisher> boardgamepublisher)
     {
         this.boardgamepublisher = boardgamepublisher;
     }
@@ -68,12 +74,12 @@ public class Boardgame
         this.boardgameexpansion = boardgameexpansion;
     }
 
-    public Boardgameartist[] getBoardgameartist ()
+    public List<Boardgameartist> getBoardgameartist ()
     {
         return boardgameartist;
     }
 
-    public void setBoardgameartist (Boardgameartist[] boardgameartist)
+    public void setBoardgameartist (List<Boardgameartist> boardgameartist)
     {
         this.boardgameartist = boardgameartist;
     }
@@ -88,12 +94,12 @@ public class Boardgame
         this.image = image;
     }
 
-    public Boardgamedesigner[] getBoardgamedesigner ()
+    public List<Boardgamedesigner> getBoardgamedesigner ()
     {
         return boardgamedesigner;
     }
 
-    public void setBoardgamedesigner (Boardgamedesigner[] boardgamedesigner)
+    public void setBoardgamedesigner (List<Boardgamedesigner> boardgamedesigner)
     {
         this.boardgamedesigner = boardgamedesigner;
     }
@@ -128,12 +134,12 @@ public class Boardgame
         this.maxplayers = maxplayers;
     }
 
-    public Poll[] getPoll ()
+    public List<Poll> getPoll ()
     {
         return poll;
     }
 
-    public void setPoll (Poll[] poll)
+    public void setPoll (List<Poll> poll)
     {
         this.poll = poll;
     }
@@ -208,12 +214,12 @@ public class Boardgame
         this.minplaytime = minplaytime;
     }
 
-    public Boardgamecategory[] getBoardgamecategory ()
+    public List<Boardgamecategory> getBoardgamecategory ()
     {
         return boardgamecategory;
     }
 
-    public void setBoardgamecategory (Boardgamecategory[] boardgamecategory)
+    public void setBoardgamecategory (List<Boardgamecategory> boardgamecategory)
     {
         this.boardgamecategory = boardgamecategory;
     }

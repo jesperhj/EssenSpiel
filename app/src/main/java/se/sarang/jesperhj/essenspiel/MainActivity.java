@@ -91,7 +91,8 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View view) {
                 // No callback defined at this point
                 //controller.getPosts();
-                controller.getBoardGames("181797,172584");
+                String ids = "180977";//" 180977, 130486, 165022, 147251, 175878 ";
+                controller.getBoardGames(ids);
             }
         });
 
@@ -165,15 +166,19 @@ public class MainActivity extends ActionBarActivity {
         List<String> boardgameIds = new ArrayList<String>();
         for (Item i : items) {
             boardgameIds.add(i.getObjectid());
-            if(boardgameIds.size() == 10) {
+            if(boardgameIds.size() == 50) {
+                String ids = "180977,130486,165022,147251,175878";
                 controller.getBoardGames(android.text.TextUtils.join(",", boardgameIds));
+                System.out.println("XXXXXXXXX");
+                System.out.println(android.text.TextUtils.join(",", boardgameIds));
                 boardgameIds.clear();
-                try {
+                break;
+                /*try {
                     Thread.sleep(1000);
                     break;
                 } catch ( java.lang.InterruptedException ie) {
                     System.out.println(ie);
-                }
+                }*/
             }
             //System.out.println(i.getId());
             //controller.getBoardGame(i.getObjectid());

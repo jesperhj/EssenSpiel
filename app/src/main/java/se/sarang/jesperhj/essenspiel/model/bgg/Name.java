@@ -1,16 +1,20 @@
 package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
 
 /**
  * Created by jesper on 05/09/15.
  */
+@Element(name="name")
 public class Name
 {
     private String content;
-    @Attribute
+
+    @Attribute(name = "sortindex", required = false)
     private String sortindex;
-    @Attribute
+
+    @Attribute(name = "primary", required = false)
     private String primary;
 
     public String getContent ()

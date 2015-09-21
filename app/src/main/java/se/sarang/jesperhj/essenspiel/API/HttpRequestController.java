@@ -14,7 +14,8 @@ import se.sarang.jesperhj.essenspiel.composed.GetGeekList;
  */
 public class HttpRequestController {
 
-    private static final String API_URL = "https://www.boardgamegeek.com/xmlapi";
+    //private static final String API_URL = "https://www.boardgamegeek.com/xmlapi";
+    private static final String API_URL = "https://s3-eu-west-1.amazonaws.com/bgg.sarang.se";
     private static String Essen2015 = "174654";
     //String API = "https://s3-eu-west-1.amazonaws.com/bgg.sarang.se";
     //String Essen2015 = "11205";
@@ -42,6 +43,7 @@ public class HttpRequestController {
     }
 
     public void getBoardGames(String boardgameIds) {
+        System.out.println("inside_getBoardGames");
         request.boardgame(boardgameIds, new GetBoardgames.Callback());
     }
 
