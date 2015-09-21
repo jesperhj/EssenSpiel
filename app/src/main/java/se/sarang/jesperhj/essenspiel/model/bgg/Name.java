@@ -2,11 +2,13 @@ package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 /**
  * Created by jesper on 05/09/15.
  */
-@Element(name="name")
+//@Element(name="name")
+@Root(strict=false)
 public class Name
 {
     private String content;

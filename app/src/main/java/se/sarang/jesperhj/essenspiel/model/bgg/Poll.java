@@ -2,19 +2,21 @@ package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 /**
  * Created by jesper on 05/09/15.
  */
+@Root(strict=false)
 public class Poll
 {
-    @Attribute
+    @Attribute(required = false)
     private String title;
-    @Element
+    @Element(required = false)
     private Results results;
-    @Attribute
+    @Attribute(required = false)
     private String totalvotes;
-    @Attribute
+    @Attribute(required = false)
     private String name;
 
     public String getTitle ()

@@ -31,9 +31,11 @@ public class GetBoardgames {
 
             String ids = "";
             System.out.println("YYYYYYYY");
+            System.out.println(boardgames.getBoardgame().size());
             for (Boardgame bg: boardgames.getBoardgame()){
-                System.out.println(bg.getName());
-                ids.concat(" " + bg.getName());
+                System.out.println(bg.getObjectid());
+                System.out.println(bg.getClass());
+                ids.concat(" " + bg.getObjectid());
             }
             BusManager.post(new Event(ids));
         }

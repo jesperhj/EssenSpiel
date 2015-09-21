@@ -22,10 +22,10 @@ public class GetBoardgame {
 
     }
 
-    public static final class Callback implements retrofit.Callback<Boardgames> {
+    public static final class Callback implements retrofit.Callback<Boardgame> {
 
         @Override
-        public void success(Boardgames boardgames, Response retrofitResponse) {
+        public void success(Boardgame boardgame, Response retrofitResponse) {
             // Process the data
             // In a real project this could be the place to save data in the database.
             /*String text = "";
@@ -33,7 +33,8 @@ public class GetBoardgame {
                 text = text.concat(post.getId()+": "+post.getTitle()+"\n");
             }*/
             //String text = geeklist.getTitle();
-            Boardgame boardgame = boardgames.getBoardgame().get(0);
+            //Boardgame boardgame = boardgames.getBoardgame().get(0);
+
             BusManager.post(new Event(boardgame));
         }
 

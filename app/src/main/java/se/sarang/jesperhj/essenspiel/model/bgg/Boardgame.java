@@ -11,7 +11,7 @@ import java.util.jar.Attributes;
 /**
  * Created by jesper on 05/09/15.
  */
-@Element(name = "boardgame")
+@Root(name = "boardgame", strict=false)
 public class Boardgame
 {
     @Attribute(required=false)
@@ -33,7 +33,7 @@ public class Boardgame
     private String maxplaytime;
     @Element(required=false)
     private String maxplayers;
-    @ElementList(required=false)
+    @ElementList(required=false, entry = "poll", inline = true)
     private List<Poll> poll;
     @Element(required=false)
     private String thumbnail;
@@ -226,6 +226,7 @@ public class Boardgame
 
     public String getObjectid ()
     {
+        System.out.println("Inside Boardgame.getObjectId");
         return objectid;
     }
 
