@@ -8,8 +8,9 @@ import org.simpleframework.xml.Attribute;
 public class Boardgamepublisher
 {
     private String content;
-
-    @Attribute
+    @Attribute(required = false)
+    private String inbound;
+    @Attribute(required = false)
     private String objectid;
 
     public String getContent ()
@@ -20,6 +21,16 @@ public class Boardgamepublisher
     public void setContent (String content)
     {
         this.content = content;
+    }
+
+    public String getInbound ()
+    {
+        return inbound;
+    }
+
+    public void setInbound (String inbound)
+    {
+        this.inbound = inbound;
     }
 
     public String getObjectid ()

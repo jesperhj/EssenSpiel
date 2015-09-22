@@ -17,42 +17,41 @@ public class Boardgame
     @Attribute(required=false)
     private String objectid;
 
-    @ElementList(required=false)
+    @Element(required=false)
+    private String age;
+    @ElementList(required=false, inline = true)
+    private List<Boardgameartist> boardgameartist;
+    @ElementList(required=false, inline = true)
+    private List<Boardgamecategory> boardgamecategory;
+    @ElementList(required=false, inline = true)
+    private List<Boardgamedesigner> boardgamedesigner;
+    @ElementList(required=false, inline = true)
+    private List<Boardgameexpansion> boardgameexpansion;
+    @ElementList(required=false, inline = true)
     private List<Boardgamepublisher> boardgamepublisher;
     @Element(required=false)
-    private Boardgameexpansion boardgameexpansion;
-    @ElementList(required=false)
-    private List<Boardgameartist> boardgameartist;
+    private String description;
     @Element(required=false)
     private String image;
-    @ElementList(required=false)
-    private List<Boardgamedesigner> boardgamedesigner;
     @Element(required=false)
-    private String minplayers;
+    private String maxplayers;
     @Element(required=false)
     private String maxplaytime;
     @Element(required=false)
-    private String maxplayers;
+    private String minplayers;
+    @Element(required=false)
+    private String minplaytime;
+    @ElementList(required = false, inline = true)
+    private List<Name> name;
+    @Element(required=false)
+    private String playingtime;
     @ElementList(required=false, entry = "poll", inline = true)
     private List<Poll> poll;
     @Element(required=false)
     private String thumbnail;
     @Element(required=false)
-    private String playingtime;
-    @Element(required=false)
-    private String description;
-
-    @Element(name = "name", required = false, type = Name.class)
-    private Name name;
-
-    @Element(required=false)
-    private String age;
-    @Element(required=false)
     private String yearpublished;
-    @Element(required=false)
-    private String minplaytime;
-    @ElementList(required=false)
-    private List<Boardgamecategory> boardgamecategory;
+
 
     public List<Boardgamepublisher> getBoardgamepublisher ()
     {
@@ -64,12 +63,12 @@ public class Boardgame
         this.boardgamepublisher = boardgamepublisher;
     }
 
-    public Boardgameexpansion getBoardgameexpansion ()
+    public List<Boardgameexpansion> getBoardgameexpansion ()
     {
         return boardgameexpansion;
     }
 
-    public void setBoardgameexpansion (Boardgameexpansion boardgameexpansion)
+    public void setBoardgameexpansion (List<Boardgameexpansion> boardgameexpansion)
     {
         this.boardgameexpansion = boardgameexpansion;
     }
@@ -174,12 +173,12 @@ public class Boardgame
         this.description = description;
     }
 
-    public Name getName ()
+    public List<Name> getName ()
     {
         return name;
     }
 
-    public void setName (Name name)
+    public void setName (List<Name> name)
     {
         this.name = name;
     }

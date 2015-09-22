@@ -2,7 +2,10 @@ package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import java.util.List;
 
 /**
  * Created by jesper on 05/09/15.
@@ -11,13 +14,15 @@ import org.simpleframework.xml.Root;
 public class Poll
 {
     @Attribute(required = false)
+    private String name;
+    @Attribute(required = false)
     private String title;
-    @Element(required = false)
-    private Results results;
     @Attribute(required = false)
     private String totalvotes;
-    @Attribute(required = false)
-    private String name;
+
+
+    @ElementList(required = false, inline = true)
+    private List<Results> results;
 
     public String getTitle ()
     {
@@ -29,12 +34,12 @@ public class Poll
         this.title = title;
     }
 
-    public Results getResults ()
+    public List<Results> getResults ()
     {
         return results;
     }
 
-    public void setResults (Results results)
+    public void setResults (List<Results> results)
     {
         this.results = results;
     }

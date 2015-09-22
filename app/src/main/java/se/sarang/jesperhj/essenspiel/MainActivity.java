@@ -186,6 +186,20 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /*
+    Go through list and fetch 50 games for each request
+     */
+    public void parseGeeklist(List<Item> items) {
+        List<String> boardgameIds = new ArrayList<String>();
+        for (Item i : items) {
+            boardgameIds.add(i.getObjectid());
+            if (boardgameIds.size() % 75 == 0) {
+                controller.getBoardGames(android.text.TextUtils.join(",", boardgameIds));
+                boardgameIds.clear();
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -224,12 +238,13 @@ public class MainActivity extends ActionBarActivity {
     @Subscribe
     public void onGetGeeklist(GetGeekList.Event event){
         tv.setText(event.getGeeklist().getTitle());
-        fillList(event.getGeeklist().getItem());
+        //fillList(event.getGeeklist().getItem());
+        parseGeeklist(event.getGeeklist().getItem());
     }
 
     @Subscribe
     public void onGetBoardgames(GetBoardgames.Event event){
-        System.out.println("foo");
+        System.out.println("MainActivity onGetBoardgames");
         //tv.setText(event.getBoardgame().getName());
         //fillList(event.getGeeklist().getItem());
     }

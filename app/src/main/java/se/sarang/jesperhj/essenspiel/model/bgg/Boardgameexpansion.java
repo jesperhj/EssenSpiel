@@ -8,9 +8,9 @@ import org.simpleframework.xml.Attribute;
 public class Boardgameexpansion
 {
     private String content;
-    @Attribute
+    @Attribute(required = false)
     private String objectid;
-    @Attribute
+    @Attribute(required = false)
     private String inbound;
 
     public String getContent ()

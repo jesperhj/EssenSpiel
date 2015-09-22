@@ -31,7 +31,8 @@ public class GetBoardgames {
 
             String ids = "";
             for (Boardgame bg: boardgames.getBoardgame()){
-                ids.concat(" " + bg.getObjectid());
+                //ids.concat(" " + bg.getObjectid());
+                //System.out.println(bg.getObjectid());
             }
             BusManager.post(new Event(ids));
         }
@@ -39,6 +40,7 @@ public class GetBoardgames {
         @Override
         public void failure(RetrofitError error) {
             System.out.println("inside_GetBoardGames Failure");
+            System.out.print(error.getMessage());
             BusManager.post(new RetrofitErrorEvent(error));
         }
 

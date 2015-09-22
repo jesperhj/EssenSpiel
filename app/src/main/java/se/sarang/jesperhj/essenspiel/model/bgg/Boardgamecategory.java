@@ -1,6 +1,7 @@
 package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
 /**
  * Created by jesper on 05/09/15.
@@ -8,7 +9,9 @@ import org.simpleframework.xml.Attribute;
 public class Boardgamecategory
 {
     private String content;
-    @Attribute
+    @Attribute(required = false)
+    private String inbound;
+    @Attribute(required = false)
     private String objectid;
 
     public String getContent ()
@@ -19,6 +22,16 @@ public class Boardgamecategory
     public void setContent (String content)
     {
         this.content = content;
+    }
+
+    public String getInbound ()
+    {
+        return inbound;
+    }
+
+    public void setInbound (String inbound)
+    {
+        this.inbound = inbound;
     }
 
     public String getObjectid ()

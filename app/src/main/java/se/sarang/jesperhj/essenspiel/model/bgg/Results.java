@@ -1,7 +1,10 @@
 package se.sarang.jesperhj.essenspiel.model.bgg;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import java.util.List;
 
 /**
  * Created by jesper on 05/09/15.
@@ -9,19 +12,20 @@ import org.simpleframework.xml.Root;
 @Root(strict = false)
 public class Results
 {
-    private String content;
-
     @Attribute(required = false)
     private String numplayers;
 
-    public String getContent ()
+    @ElementList(required = false, inline = true)
+    private List<Result> result;
+
+    public List<Result> getResult ()
     {
-        return content;
+        return result;
     }
 
-    public void setContent (String content)
+    public void setResult (List<Result> result)
     {
-        this.content = content;
+        this.result = result;
     }
 
     public String getNumplayers ()
