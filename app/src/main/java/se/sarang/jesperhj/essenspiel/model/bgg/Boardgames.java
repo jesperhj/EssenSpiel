@@ -15,7 +15,7 @@ import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
 @Root(name = "boardgames", strict=false)
 public class Boardgames
 {
-    @ElementList
+    @ElementList(inline = true)
     private List<Boardgame> boardgame;
 
     @Attribute

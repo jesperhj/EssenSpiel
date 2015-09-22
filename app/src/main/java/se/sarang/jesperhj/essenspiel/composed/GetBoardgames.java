@@ -30,11 +30,7 @@ public class GetBoardgames {
             System.out.println("inside_GetBoardGames Success");
 
             String ids = "";
-            System.out.println("YYYYYYYY");
-            System.out.println(boardgames.getBoardgame().size());
             for (Boardgame bg: boardgames.getBoardgame()){
-                System.out.println(bg.getObjectid());
-                System.out.println(bg.getClass());
                 ids.concat(" " + bg.getObjectid());
             }
             BusManager.post(new Event(ids));
@@ -43,7 +39,6 @@ public class GetBoardgames {
         @Override
         public void failure(RetrofitError error) {
             System.out.println("inside_GetBoardGames Failure");
-            System.out.println(error.toString());
             BusManager.post(new RetrofitErrorEvent(error));
         }
 
