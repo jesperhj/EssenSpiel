@@ -8,6 +8,8 @@ public class Game {
     private int id;
     private String title;
     private int publisherId;
+    private String players;
+    private String age;
 
     public Game(){}
 
@@ -16,6 +18,8 @@ public class Game {
         this.id = id;
         this.title = title;
         this.publisherId = publisherId;
+        this.players = "";
+        this.age = "";
     }
 
     //getters & setters
@@ -24,7 +28,13 @@ public class Game {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public int getPublisherId() { return publisherId; }
-    public void setPublisherId(int publisherId) { this.publisherId = publisherId; }
+    public void setPublisherId(int publisherId) { this.publisherId = publisherId;}
+    public String getPlayers() {return players; }
+    public void setPlayers(String players) {this.players = players;}
+    public String getAge() {return age;}
+    public void setAge(String age) {this.age = age;}
+
+
 
     @Override
     public String toString() {

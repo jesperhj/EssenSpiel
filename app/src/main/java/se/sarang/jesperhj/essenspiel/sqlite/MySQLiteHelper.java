@@ -29,6 +29,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_AUTHOR = "publisherId";
+    private static final String KEY_MIN_PLAYERS = "players";
+    private static final String KEY_MIN_PLAYTIME = "minPlaytime";
+    private static final String KEY_MAX_PLAYTIME = "maxPlaytime";
+    private static final String KEY_AGE = "age";
 
     private static final String[] COLUMNS = {KEY_ID,KEY_TITLE,KEY_AUTHOR};
 
@@ -51,7 +55,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older games table if existed
-        db.execSQL("DROP TABLE IF EXISTS books");
+        db.execSQL("DROP TABLE IF EXISTS games");
 
         // create fresh books table
         this.onCreate(db);
@@ -78,7 +82,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Game getBook(int id){
+    public Game getGame(int id){
 
         // 1. get reference to readable DB
         SQLiteDatabase db = this.getReadableDatabase();
@@ -111,7 +115,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         return game;
     }
 
-    public List<Game> getAllBooks() {
+    public List<Game> getAllGames() {
         List<Game> games = new LinkedList<Game>();
 
         // 1. build the query
@@ -149,7 +153,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
         values.put("title", game.getTitle()); // get title
-        values.put("PublisherId", game.getPublisherId()); // get author
+        values.put("publisherId", game.getPublisherId()); // get author
+        values.put("players", game.getPlayers());
+        values.put("age", game.getAge());
 
         // 3. updating row
         int i = db.update(TABLE_GAMES, //table

@@ -1,5 +1,8 @@
 package se.sarang.jesperhj.essenspiel.model.bgg;
 
+import android.provider.CalendarContract;
+import android.util.Log;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -173,9 +176,18 @@ public class Boardgame
         this.description = description;
     }
 
-    public List<Name> getName ()
+    public String getName ()
     {
-        return name;
+        String nameCandidate = "";
+        for (Name n : name) {
+            System.out.println(n);
+            if(n.isPrimary()) {
+                return n.getContent();
+            } else {
+                nameCandidate = n.getContent();
+            }
+        }
+        return nameCandidate;
     }
 
     public void setName (List<Name> name)
@@ -223,15 +235,39 @@ public class Boardgame
         this.boardgamecategory = boardgamecategory;
     }
 
-    public String getObjectid ()
+    public Integer getObjectid ()
     {
-        System.out.println("Inside Boardgame.getObjectId");
-        return objectid;
+        return Integer.parseInt(objectid);
     }
 
     public void setObjectid (String objectid)
     {
         this.objectid = objectid;
+    }
+
+    public String getPlayers() {
+        if (minplayers != null && maxplayers != null) {
+            return minplayers + " - " + maxplayers;
+        } else if(minplayers != null) {
+            return minplayers;
+        } else if(maxplayers != null) {
+            return maxplayers;
+        }
+        return "";
+    }
+
+    public boolean isValid() {
+        if (getObjectid() == null || getObjectid() == 0) {
+            System.out.println("Object id not ok");
+            return false;
+        } else if(getName() == null) {
+            System.out.println("Name not ok");
+            return false;
+        } else if(getBoardgamepublisher() == null || getBoardgamepublisher().get(0) == null || getBoardgamepublisher().get(0).getObjectid() == null) {
+            System.out.println("publisher not ok");
+            return false;
+        }
+        return true;
     }
 
     @Override

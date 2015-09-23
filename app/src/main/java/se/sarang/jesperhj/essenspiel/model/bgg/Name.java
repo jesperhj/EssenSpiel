@@ -7,8 +7,8 @@ import org.simpleframework.xml.Root;
 /**
  * Created by jesper on 05/09/15.
  */
-//@Element(name="name")
-@Root(strict=false)
+@Element(name="name")
+//@Root(strict=false)
 public class Name
 {
     private String content;
@@ -41,7 +41,14 @@ public class Name
 
     public String getPrimary ()
     {
-        return primary;
+     return primary;
+    }
+
+    public boolean isPrimary() {
+        if (primary == "true") {
+            return true;
+        }
+        return false;
     }
 
     public void setPrimary (String primary)
@@ -52,6 +59,7 @@ public class Name
     @Override
     public String toString()
     {
-        return "ClassPojo [content = "+content+", sortindex = "+sortindex+", primary = "+primary+"]";
+            return "ClassPojo [content = "+content+", sortindex = "+sortindex+", primary = "+primary+"]";
     }
+
 }

@@ -49,7 +49,7 @@ public class GetGeekList {
         private List<String> ExtractBoardgamesIds(Geeklist geeklist) {
             List<String> boardgameList = new ArrayList<String>();
             for (Item i : geeklist.getItem()) {
-                boardgameList.add(i.getObjectid());
+                boardgameList.add(i.getObjectid().toString());
             }
             return boardgameList;
         }

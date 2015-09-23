@@ -28,6 +28,9 @@ import se.sarang.jesperhj.essenspiel.bus.RetrofitErrorEvent;
 import se.sarang.jesperhj.essenspiel.composed.GetBoardgame;
 import se.sarang.jesperhj.essenspiel.composed.GetBoardgames;
 import se.sarang.jesperhj.essenspiel.composed.GetGeekList;
+import se.sarang.jesperhj.essenspiel.model.Game;
+import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
+import se.sarang.jesperhj.essenspiel.model.bgg.Boardgames;
 import se.sarang.jesperhj.essenspiel.model.bgg.Geeklist;
 import se.sarang.jesperhj.essenspiel.model.bgg.Item;
 
@@ -50,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
     ListView lv;
 
     private HttpRequestController controller;
+    private MySQLiteHelper db = new MySQLiteHelper(this);
 
 /*    private static BGGClient bggClient;
     private static RestAdapter restAdapter;
@@ -91,33 +95,24 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View view) {
                 // No callback defined at this point
                 //controller.getPosts();
-                String ids = "180977";//" 180977, 130486, 165022, 147251, 175878 ";
-                controller.getBoardGames(ids);
+                //String ids = "180977";//" 180977, 130486, 165022, 147251, 175878 ";
+                //controller.getBoardGames(ids);
+                System.out.println("Db size" + db.getAllGames().size());
+                for (Game g : db.getAllGames()) {
+                    System.out.println(g.getId() + " " + g.getTitle() + " " + g.getPublisherId());
+                }
+
             }
         });
 
         BusManager.register(this);
 
-        //MySQLiteHelper db = new MySQLiteHelper(this);
-        /*// add Books
-        db.addGame(new Game("Android Application Development Cookbook", "Wei Meng Lee"));
-        db.addGame((new Game("Android Programming: The Big Nerd Ranch Guide", "Bill Phillips and Brian Hardy"));
-        db.addGame((new Game("Learn Android App Development", "Wallace Jackson"));
-
-        // get all books
-        List<Game> list = db.getAllBooks();
-
-        // delete one book
-        db.deleteGame(list.get(0));
-
-        // get all books
-        db.getAllBooks();*/
-
-        /*RestAdapter restAdapter = new RestAdapter.Builder()
-                .setConverter(new SimpleXMLConverter())
-                .setEndpoint(API)
-                .setClient(new OkClient(new OkHttpClient()))
-                .build();*/
+        db.addGame(new Game(1, "foo", 23));
+        List<Game> list = db.getAllGames();
+        for (Game g : list) {
+            System.out.println(g.getTitle());
+            db.deleteGame(g);
+        }
 
         /*GeeklistAPI bgg = restAdapter.create(GeeklistAPI.class);
 
@@ -163,27 +158,6 @@ public class MainActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        List<String> boardgameIds = new ArrayList<String>();
-        for (Item i : items) {
-            boardgameIds.add(i.getObjectid());
-            if(boardgameIds.size() == 50) {
-                String ids = "180977,130486,165022,147251,175878";
-                controller.getBoardGames(android.text.TextUtils.join(",", boardgameIds));
-                System.out.println("XXXXXXXXX");
-                System.out.println(android.text.TextUtils.join(",", boardgameIds));
-                boardgameIds.clear();
-                break;
-                /*try {
-                    Thread.sleep(1000);
-                    break;
-                } catch ( java.lang.InterruptedException ie) {
-                    System.out.println(ie);
-                }*/
-            }
-            //System.out.println(i.getId());
-            //controller.getBoardGame(i.getObjectid());
-            //db.addGame(new Game(i.getId()));
-        }
     }
 
     /*
@@ -192,11 +166,26 @@ public class MainActivity extends ActionBarActivity {
     public void parseGeeklist(List<Item> items) {
         List<String> boardgameIds = new ArrayList<String>();
         for (Item i : items) {
-            boardgameIds.add(i.getObjectid());
+            db.addGame(new Game(
+                    i.getObjectid(),
+                    i.getObjectname(),
+                    i.getPublisherid()
+            ));
+            boardgameIds.add(i.getObjectid().toString());
             if (boardgameIds.size() % 75 == 0) {
                 controller.getBoardGames(android.text.TextUtils.join(",", boardgameIds));
                 boardgameIds.clear();
+                break;
             }
+        }
+    }
+
+    public void updateGames(Boardgames boardgames) {
+        for (Boardgame bg : boardgames.getBoardgame()) {
+            Game g = db.getGame(bg.getObjectid());
+            g.setPlayers(bg.getPlayers());
+            g.setAge(bg.getAge());
+            db.updateGame(g);
         }
     }
 
@@ -238,13 +227,14 @@ public class MainActivity extends ActionBarActivity {
     @Subscribe
     public void onGetGeeklist(GetGeekList.Event event){
         tv.setText(event.getGeeklist().getTitle());
-        //fillList(event.getGeeklist().getItem());
         parseGeeklist(event.getGeeklist().getItem());
+        fillList(event.getGeeklist().getItem());
     }
 
     @Subscribe
     public void onGetBoardgames(GetBoardgames.Event event){
         System.out.println("MainActivity onGetBoardgames");
+        updateGames(event.getBoardgames());
         //tv.setText(event.getBoardgame().getName());
         //fillList(event.getGeeklist().getItem());
     }

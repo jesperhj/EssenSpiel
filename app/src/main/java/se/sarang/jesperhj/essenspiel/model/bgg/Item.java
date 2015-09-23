@@ -130,9 +130,9 @@ public class Item
         this.subtype = subtype;
     }
 
-    public String getObjectid ()
+    public Integer getObjectid ()
     {
-        return objectid;
+        return Integer.parseInt(objectid);
     }
 
     public void setObjectid (String objectid)
@@ -160,9 +160,9 @@ public class Item
         this.editdate = editdate;
     }
 
-    public String getPublisherid ()
+    public Integer getPublisherid ()
     {
-        return publisherid;
+        return Integer.parseInt(publisherid);
     }
 
     public void setPublisherid (String publisherid)

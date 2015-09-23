@@ -33,9 +33,9 @@ public class Boardgamepublisher
         this.inbound = inbound;
     }
 
-    public String getObjectid ()
+    public Integer getObjectid ()
     {
-        return objectid;
+        return Integer.parseInt(objectid);
     }
 
     public void setObjectid (String objectid)

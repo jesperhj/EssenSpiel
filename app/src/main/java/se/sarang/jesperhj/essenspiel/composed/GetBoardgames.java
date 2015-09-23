@@ -6,8 +6,10 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import se.sarang.jesperhj.essenspiel.bus.BusManager;
 import se.sarang.jesperhj.essenspiel.bus.RetrofitErrorEvent;
+import se.sarang.jesperhj.essenspiel.model.Game;
 import se.sarang.jesperhj.essenspiel.model.bgg.Boardgame;
 import se.sarang.jesperhj.essenspiel.model.bgg.Boardgames;
+import se.sarang.jesperhj.essenspiel.sqlite.MySQLiteHelper;
 
 /**
  * Created by jesper on 06/09/15.
@@ -29,12 +31,13 @@ public class GetBoardgames {
         public void success(Boardgames boardgames, Response retrofitResponse) {
             System.out.println("inside_GetBoardGames Success");
 
-            String ids = "";
+            /*String ids = "";
             for (Boardgame bg: boardgames.getBoardgame()){
                 //ids.concat(" " + bg.getObjectid());
                 //System.out.println(bg.getObjectid());
             }
-            BusManager.post(new Event(ids));
+            BusManager.post(new Event(ids));*/
+            BusManager.post(new Event(boardgames));
         }
 
         @Override
@@ -46,35 +49,21 @@ public class GetBoardgames {
 
     }
 
-
-
-    /*public class GK {
-        private final Geeklist geeklist;
-
-        public GK(Geeklist geeklist) {
-            this.geeklist = geeklist;
-        }
-
-        public String getGeeklist() {
-            return geeklist;
-        }
-    }*/
-
     // Otto Event
-/*    public static final class Event {
-
-        private final Boardgame boardgame;
-
-        public Event(Boardgame boardgame) {
-            this.boardgame = boardgame;
-        }
-
-        public Boardgame getBoardgame() {
-            return boardgame;
-        }
-    }*/
-
     public static final class Event {
+
+        private final Boardgames boardgames;
+
+        public Event(Boardgames boardgames) {
+            this.boardgames = boardgames;
+        }
+
+        public Boardgames getBoardgames() {
+            return boardgames;
+        }
+    }
+
+   /* public static final class Event {
 
         private final String status;
 
@@ -85,5 +74,5 @@ public class GetBoardgames {
         public String getBoardgame() {
             return status;
         }
-    }
+    }*/
 }
